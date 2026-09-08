@@ -10,7 +10,7 @@
 set -eu
 cd "$(dirname "$0")/.." || exit 1
 
-VERSION=$(node -p "require('./package.json').version")
+VERSION=$(node --input-type=commonjs -p "require('./package.json').version")
 DRY=""
 [ "${1:-}" = "--dry-run" ] && DRY="--dry-run"
 
@@ -18,8 +18,8 @@ echo "== building all targets (version $VERSION)"
 node scripts/build.js
 
 echo "== publishing platform packages"
-for dir in npm/@adamancyzhang/*/; do
-	name=$(node -p "require('./$dir/package.json').name")
+for dir in npm/agent-go-debugger-*/; do
+	name=$(node --input-type=commonjs -p "require('./$dir/package.json').name")
 	echo "publish $name@$VERSION"
 	# shellcheck disable=SC2086
 	(cd "$dir" && npm publish $DRY --access public)
