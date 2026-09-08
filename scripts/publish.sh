@@ -22,10 +22,10 @@ for dir in npm/agent-go-debugger-*/; do
 	name=$(node --input-type=commonjs -p "require('./$dir/package.json').name")
 	echo "publish $name@$VERSION"
 	# shellcheck disable=SC2086
-	(cd "$dir" && npm publish $DRY --access public)
+	(cd "$dir" && npm publish $DRY --ignore-scripts --access public)
 done
 
 echo "== publishing main package @adamancyzhang/agent-go-debugger@$VERSION"
-npm publish $DRY --access public
+npm publish $DRY --ignore-scripts --access public
 
 echo "done. verify: npm view @adamancyzhang/agent-go-debugger versions"
