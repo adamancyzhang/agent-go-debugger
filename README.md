@@ -115,8 +115,8 @@ connection error · `130` interrupted.
 is redirected to stderr so the stream stays pure). Stable event `type`s:
 `attach`, `command`, `bp`, `stop`, `trace`, `timeout`, `exited`, `error`,
 `goroutines`, `goroutine`, `stack`, `locals`, `args`, `eval`, `source`,
-`status`, `handoff`, `quit`. See `skills/agent-go-debugger/SKILL.md` and
-`DESIGN.md` for the full schemas.
+`status`, `handoff`, `quit`. See `skills/agent-go-debugger/SKILL.md`
+for the full schemas.
 
 ## Design semantics (vs the py/java siblings)
 
@@ -167,5 +167,3 @@ npm run deploy -- --dry-run     # rehearsal without uploading
 
 A single platform package can be published on its own — it still builds
 itself first. Requires `npm login` beforehand.
-
-See DESIGN.md for the Delve API baseline this CLI is pinned to.
