@@ -152,15 +152,20 @@ bash tests/e2e_sample.sh        # runs the end-to-end scenarios
 
 ## Publishing (npm)
 
-Building and deploying are separate steps — deploy never builds:
+Deploy never builds. Each `npm publish` runs that package's own
+`prepublishOnly`, which builds exactly the binary it ships
+(`scripts/build.js --one <platform>`) right before uploading — a publish can
+never ship stale output, and nothing is ever built twice:
 
 ```bash
-npm run build                   # cross-compile all platform binaries into npm/
-npm run deploy                  # publish platform packages, then the main package
+npm run build                   # optional: full cross-compile matrix at once
+npm run deploy                  # publishes each platform package (each one
+                                # builds itself via prepublishOnly first),
+                                # then the main package
 npm run deploy -- --dry-run     # rehearsal without uploading
 ```
 
-Deploy refuses to run when platform binaries are missing (run `npm run build`
-first). Requires `npm login` beforehand.
+A single platform package can be published on its own — it still builds
+itself first. Requires `npm login` beforehand.
 
 See DESIGN.md for the Delve API baseline this CLI is pinned to.

@@ -33,6 +33,13 @@ const TARGETS = [
 const npmPlatform = { darwin: 'darwin', linux: 'linux', windows: 'win32' };
 const npmArch = { arm64: 'arm64', amd64: 'x64' };
 
+function tagOf(t) {
+  return `${t.goos}-${t.goarch}`;
+}
+function findTarget(tag) {
+  return TARGETS.find((t) => tagOf(t) === tag);
+}
+
 function pkgName(t) {
   return `@adamancyzhang/agent-go-debugger-${npmPlatform[t.goos]}-${npmArch[t.goarch]}`;
 }
@@ -70,6 +77,15 @@ function writePlatformPackage(t) {
     bin: { 'agent-go-debugger': `bin/${exeName(t)}` },
     files: ['bin'],
     license: 'MIT',
+    scripts: {
+      // npm publish triggers this: build only THIS platform's binary, so a
+      // publish never ships stale output and never rebuilds other platforms.
+      prepublishOnly: `node ../../scripts/build.js --one ${tagOf(t)}`,
+    },
+    publishConfig: {
+      access: 'public',
+      registry: 'https://registry.npmjs.org/',
+    },
   };
   fs.writeFileSync(
     path.join(dir, 'package.json'),
@@ -104,9 +120,21 @@ function smokeTest(t) {
 }
 
 const onlySmoke = process.argv.includes('--smoke');
+const oneIdx = process.argv.indexOf('--one');
+const oneTag = oneIdx >= 0 ? process.argv[oneIdx + 1] : null;
 checkSkillFrontmatter();
 
-if (onlySmoke) {
+if (oneTag) {
+  const t = findTarget(oneTag);
+  if (!t) {
+    console.error(`unknown target "${oneTag}" — expected one of: ${TARGETS.map(tagOf).join(', ')}`);
+    process.exit(1);
+  }
+  console.log(`build single target ${oneTag}`);
+  goBuild(t);
+  writePlatformPackage(t);
+  console.log('done');
+} else if (onlySmoke) {
   const t = currentTarget();
   if (!TARGETS.some((x) => x.goos === t.goos && x.goarch === t.goarch)) {
     console.error(`current platform ${t.goos}/${t.goarch} is not a release target`);

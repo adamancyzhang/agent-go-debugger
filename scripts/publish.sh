@@ -1,8 +1,10 @@
 #!/bin/bash
 # Publish the npm distribution.
 #
-# Deploy is separate from building: run `npm run build` first to produce the
-# platform packages under npm/, then publish them:
+# Deploy never builds: each `npm publish` runs that package's own
+# prepublishOnly, which builds exactly the platform binary it ships
+# (scripts/build.js --one <tag>) right before uploading. No full build,
+# no skipped lifecycle scripts, no duplicate work.
 #
 #   bash scripts/publish.sh [--dry-run]
 #
@@ -16,20 +18,6 @@ cd "$(dirname "$0")/.." || exit 1
 VERSION=$(node --input-type=commonjs -p "require('./package.json').version")
 DRY=""
 [ "${1:-}" = "--dry-run" ] && DRY="--dry-run"
-
-# Platform packages must already be built (`npm run build`). Refuse to
-# publish stale or partial output instead of building here.
-missing=0
-for dir in npm/agent-go-debugger-*/; do
-	if [ ! -x "${dir}bin/agent-go-debugger" ] && [ ! -x "${dir}bin/agent-go-debugger.exe" ]; then
-		echo "missing platform binary under $dir" >&2
-		missing=1
-	fi
-done
-if [ "$missing" -ne 0 ]; then
-	echo "run \`npm run build\` first to produce the platform binaries" >&2
-	exit 1
-fi
 
 echo "== publishing platform packages (version $VERSION)"
 for dir in npm/agent-go-debugger-*/; do
