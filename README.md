@@ -150,4 +150,17 @@ bash tests/run_sample.sh        # starts a sample Go service under dlv (port 234
 bash tests/e2e_sample.sh        # runs the end-to-end scenarios
 ```
 
+## Publishing (npm)
+
+Building and deploying are separate steps — deploy never builds:
+
+```bash
+npm run build                   # cross-compile all platform binaries into npm/
+npm run deploy                  # publish platform packages, then the main package
+npm run deploy -- --dry-run     # rehearsal without uploading
+```
+
+Deploy refuses to run when platform binaries are missing (run `npm run build`
+first). Requires `npm login` beforehand.
+
 See DESIGN.md for the Delve API baseline this CLI is pinned to.

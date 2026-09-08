@@ -41,7 +41,6 @@
   },
   "scripts": {
     "build": "node scripts/build.js",
-    "prepublishOnly": "npm run build",
     "check-skill": "bash scripts/check-skill.sh",
     "test": "bash tests/e2e_sample.sh",
     "deploy": "bash scripts/publish.sh"
