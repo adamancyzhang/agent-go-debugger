@@ -1,0 +1,49 @@
+{
+  "name": "@adamancyzhang/agent-go-debugger",
+  "version": "0.1.0",
+  "description": "Remote debugging CLI for Go targets via Delve headless \u2014 breakpoints, stepping, goroutines, stack/locals/eval for AI agents. Self-contained binaries per platform; no Go toolchain needed.",
+  "bin": {
+    "agent-go-debugger": "bin/agent-go-debugger.mjs"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "bin",
+    "skills"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamancyzhang/agent-go-debugger.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "go",
+    "golang",
+    "dlv",
+    "delve",
+    "debugger",
+    "breakpoint",
+    "remote-debugging",
+    "cli",
+    "agent"
+  ],
+  "optionalDependencies": {
+    "@adamancyzhang/agent-go-debugger-darwin-arm64": "0.1.0",
+    "@adamancyzhang/agent-go-debugger-darwin-x64": "0.1.0",
+    "@adamancyzhang/agent-go-debugger-linux-arm64": "0.1.0",
+    "@adamancyzhang/agent-go-debugger-linux-x64": "0.1.0",
+    "@adamancyzhang/agent-go-debugger-win32-x64": "0.1.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "prepublishOnly": "npm run build",
+    "check-skill": "bash scripts/check-skill.sh",
+    "test": "bash tests/e2e_sample.sh"
+  },
+  "type": "module"
+}

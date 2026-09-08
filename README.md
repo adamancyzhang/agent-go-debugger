@@ -19,12 +19,25 @@ exactly like agent-java-debugger attaches to a JDWP port.
   agent-go-debugger attach --host <target> --port 2345
 ```
 
-## Install & build
+## Install
+
+The CLI ships as an npm package with per-platform prebuilt binaries
+(no Go toolchain, no runtime dependencies — the binary for your machine is
+installed automatically as an optional dependency):
+
+```bash
+npm i -g @adamancyzhang/agent-go-debugger
+agent-go-debugger version
+```
+
+Supported: darwin arm64/x64, linux arm64/x64, win32 x64 (Delve has no
+native backend for windows/arm64; Windows-on-ARM runs the x64 build via
+emulation).
+
+Build from source:
 
 ```bash
 go build -o dist/agent-go-debugger .
-# or install
-go install github.com/adamancyzhang/agent-go-debugger@latest
 ```
 
 ## Starting the target side (the only "setup" on the target)
