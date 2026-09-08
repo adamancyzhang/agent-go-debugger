@@ -107,9 +107,7 @@ stop context. Execution resumes only on an explicit `continue`.
 `tests/sample` is a deterministic Go HTTP target (built with
 `-gcflags=all=-N -l` so line numbers are stable). `run_sample.sh` starts it
 under dlv headless; `e2e_sample.sh` drives the CLI through one persistent
-session per scenario and asserts on the JSONL stream. A real-world scenario
-for the novafare-api-vip (new-api) service is documented in
-`skills/agent-go-debugger/references/novafare-e2e.md`.
+session per scenario and asserts on the JSONL stream.
 
 Known caveat: on macOS, dlv started from a backgrounded shell can leave the
 headless server in a state where the first client's breakpoint RPC never

@@ -137,10 +137,8 @@ Notes:
 - Expression evaluation is Delve's DWARF evaluator: variables, fields,
   indexing, casts — not arbitrary Go calls.
 
-## 6. References
+## 6. Tests
 
-- `references/novafare-e2e.md` — real-world recipe against a new-api
-  (novafare) service: attach, breakpoint on GetStatus, curl, inspect,
-  cleanup.
-- `tests/` — sample target + e2e scripts (`bash tests/run_sample.sh`,
-  `bash tests/e2e_sample.sh`).
+- `tests/` — a self-contained sample Go service plus e2e scripts
+  (`bash tests/run_sample.sh`, `bash tests/e2e_sample.sh`) that exercise
+  the full workflow against a local dlv headless server.
