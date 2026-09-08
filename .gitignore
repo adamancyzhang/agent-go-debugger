@@ -1,0 +1,17 @@
+# build artifacts
+/dist/
+*.exe
+*.tgz
+
+# test artifacts
+/tests/sample/tmp/
+
+# sources symlink (points outside the repo, like agent-java-debugger)
+/sources/
+
+# local noise
+.DS_Store
+*.pid
+*.log
+*.jsonl
+.claude/
