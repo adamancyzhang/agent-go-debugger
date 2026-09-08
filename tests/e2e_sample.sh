@@ -195,7 +195,7 @@ end_session
 # --- S7: goroutines / source / file breakpoint -------------------------------------
 step "S7 file breakpoint + goroutines"
 start_session s7
-send "bp add --file main.go --line 38 --name lineb"
+send "bp add --file $(cd sample && pwd)/main.go --line 38 --name lineb"
 wait_evt '"op":"add"'
 check "bp add file:line" "$?"
 send "continue"

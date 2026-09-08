@@ -80,6 +80,9 @@ func (s *Session) AddBreakpoint(spec BpSpec) (BPView, error) {
 		if spec.Function != "" && strings.Contains(err.Error(), "could not find function") {
 			return BPView{}, fmt.Errorf("%v (hint: function breakpoints need the full name with package path, e.g. github.com/org/repo/package.Func)", err)
 		}
+		if spec.Function == "" && strings.Contains(err.Error(), "could not find file") {
+			return BPView{}, fmt.Errorf("%v (hint: file paths are matched against the binary's build-time paths — an absolute path usually works)", err)
+		}
 		return BPView{}, err
 	}
 	return bpView(bp), nil
