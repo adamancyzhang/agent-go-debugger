@@ -306,19 +306,19 @@ func (r *Runner) dispatch(line string) bool {
 	case "bp", "b", "breakpoint":
 		r.cmdBp(fields[1:])
 	case "stack", "bt", "backtrace":
-		r.cmdStack(fields)
+		r.cmdStack(fields[1:])
 	case "locals":
-		r.cmdLocals(fields, false)
+		r.cmdLocals(fields[1:], false)
 	case "args":
-		r.cmdLocals(fields, true)
+		r.cmdLocals(fields[1:], true)
 	case "eval", "print", "p":
-		r.cmdEval(fields)
+		r.cmdEval(fields[1:])
 	case "goroutines", "gs":
 		r.cmdGoroutines()
 	case "goroutine", "g":
-		r.cmdGoroutine(fields)
+		r.cmdGoroutine(fields[1:])
 	case "source":
-		r.cmdSource(fields)
+		r.cmdSource(fields[1:])
 	case "status":
 		r.cmdStatus()
 	case "trace":
