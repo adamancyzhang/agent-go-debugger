@@ -1,6 +1,6 @@
 ---
 name: agent-go-debugger
-description: Go remote debugging CLI for AI agents. Attach to a Go process through a Delve headless debug port and drive it from the terminal or agent scripts: breakpoints, stepping, goroutines, stack frames, locals, in-memory expression evaluation. Use when the user asks to debug a Go service, set a breakpoint, trace why a request behaves unexpectedly, verify a code path with a real request, or debug anything running under dlv --headless (dlv exec|attach --headless --listen=:PORT --api-version=2). Emits machine-readable JSON events (--json). Observes and controls only via the debug port — never touches the target process directly.
+description: 'Go debugging CLI for AI agents. Attach to a Go process through its Delve headless debug port and debug it from the terminal or from agent scripts: breakpoints, stepping, goroutines, stack frames, locals, and in-memory expression evaluation. Use when the user asks to debug a Go service, set a breakpoint, trace why a request behaves unexpectedly, inspect variables at a stop, verify a code path with a real request, or debug anything running under a dlv headless server. Triggers include requests to "set a breakpoint at ...", "step through this function", "is this method ever called", "where does this request go", "inspect this variable at the breakpoint". Emits machine-readable JSON events (--json). Controls only via the debug port — never touches the target process directly.'
 allowed-tools: Bash(agent-go-debugger:*)
 ---
 

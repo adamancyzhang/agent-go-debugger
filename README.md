@@ -131,6 +131,8 @@ is redirected to stderr so the stream stays pure). Stable event `type`s:
 ## Development
 
 ```bash
+bash scripts/check-skill.sh     # lint SKILL.md frontmatter (name/description,
+                                # no bare ": " in plain scalars)
 bash tests/run_sample.sh        # starts a sample Go service under dlv (port 23456)
 bash tests/e2e_sample.sh        # runs the end-to-end scenarios
 ```
