@@ -95,7 +95,7 @@ function writePlatformPackage(t) {
 }
 
 function checkSkillFrontmatter() {
-  execSync('bash scripts/check-skill.sh', { cwd: ROOT, stdio: 'inherit' });
+  execFileSync(process.execPath, ['scripts/check-skill.mjs'], { cwd: ROOT, stdio: 'inherit' });
 }
 
 function currentTarget() {

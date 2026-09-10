@@ -17,7 +17,7 @@ import (
 )
 
 // Version of the CLI.
-const Version = "0.1.1"
+const Version = "0.1.2"
 
 // attachFlags holds the session flags of `attach`.
 type attachFlags struct {
